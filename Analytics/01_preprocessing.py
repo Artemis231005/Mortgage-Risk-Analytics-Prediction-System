@@ -23,15 +23,26 @@ impute_list = [
 for col in impute_list:
     df[col] = df[col].fillna("Unknown")
 
-# Handle exempt category in loan_term and interest_rate
+# Handle exempt category 
 df['loan_term_exempt'] = df['loan_term'].eq('Exempt').astype(int)
-df['loan_term'] = pd.to_numeric(df['loan_term'].replace('Exempt', np.nan), errors='coerce')
 
 df['interest_rate_exempt'] = df['interest_rate'].eq('Exempt').astype(int)
-df['interest_rate'] = pd.to_numeric(df['interest_rate'].replace('Exempt', np.nan), errors='coerce')
+
+df["debt_to_income_ratio"] = (
+    df["debt_to_income_ratio"]
+    .fillna("Unknown")
+    .astype(str)
+)
+
+df['loan_to_value_ratio_exempt'] = df['loan_to_value_ratio'].eq('Exempt').astype(int)
+
+df['property_value_exempt'] = df['property_value'].eq('Exempt').astype(int)
 
 # Handle 8888 category in applicant_age
 df['applicant_age'] = df['applicant_age'].replace(['8888', 8888], 'Unknown')
+
+# Handle total_units
+df['total_units'] = df['total_units'].fillna('Unknown').astype(str)
 
 # Get Application Outcome Labels
 action_taken_map = {
@@ -199,9 +210,9 @@ for col in denial_reason_cols:
     )
 
 
+# Handle numeric
 financial_cols = [
     'loan_to_value_ratio',
-    'debt_to_income_ratio',
     'income',
     'loan_amount',
     'property_value',
@@ -211,8 +222,7 @@ financial_cols = [
 
 for col in financial_cols:
     df[col] = pd.to_numeric(df[col], errors='coerce')
-
-
+    
 # Save Processed Dataset
 
 output_path = "Dataset/Processed/HDMA Dataset_Processed.csv"

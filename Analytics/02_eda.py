@@ -6,7 +6,7 @@ import plotly.express as px
 import os
 
 df = pd.read_csv("Dataset/Processed/HDMA Dataset_Processed.csv", low_memory=False)
-os.makedirs("EDA_Graphs", exist_ok=True)
+os.makedirs("Results/EDA_Graphs", exist_ok=True)
 
 # ============================================================
 # KEY PERFORMANCE INDICATORS
