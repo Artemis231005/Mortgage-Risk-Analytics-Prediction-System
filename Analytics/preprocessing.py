@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 # Load Data
-df = pd.read_csv("Dataset/HDMA Dataset.csv", low_memory=False)
+df = pd.read_csv("Dataset/Raw/HDMA Dataset.csv", low_memory=False)
 
 # Check Duplicates
 print("Duplicates:", df.duplicated().sum())
@@ -133,7 +133,46 @@ df['applicant_credit_score_type_label'] = (
         df['applicant_credit_score_type'],
         errors='coerce'
     ).map(credit_score_map)
+)   
+
+# Get Lien Status Labels
+lien_status_mapping = {
+    1: "First Lien",
+    2: "Subordinate Lien"
+}
+
+df["lien_status_label"] = df["lien_status"].map(lien_status_mapping)
+df["lien_status_label"] = df["lien_status_label"].fillna("Unknown")
+
+# Get MSA/MD Codes
+msa_df = pd.read_excel("Dataset/Raw/MSA_Codes_Dataset.xlsx", header=2)
+
+msa_mapping_df = msa_df.iloc[:, :2].copy()
+msa_mapping_df.columns = ['derived_msa-md', 'msa_md_name']
+
+msa_mapping_df = msa_mapping_df.dropna(subset=['derived_msa-md', 'msa_md_name'])
+
+msa_mapping_df['derived_msa-md'] = (
+    pd.to_numeric(msa_mapping_df['derived_msa-md'], errors='coerce')
+    .astype('Int64')
+    .astype('string')
 )
+
+msa_mapping_df = msa_mapping_df.dropna(subset=['derived_msa-md'])
+
+msa_mapping = dict(zip(
+    msa_mapping_df['derived_msa-md'],
+    msa_mapping_df['msa_md_name']
+))
+
+df['derived_msa-md'] = (
+    pd.to_numeric(df['derived_msa-md'], errors='coerce')
+    .astype('Int64')
+    .astype('string')
+)
+
+df['msa_md_name'] = df['derived_msa-md'].map(msa_mapping)
+df['msa_md_name'] = df['msa_md_name'].fillna('Unknown')
 
 # Get Denial Reason Labels
 denial_reason_map = {
@@ -176,7 +215,7 @@ for col in financial_cols:
 
 # Save Processed Dataset
 
-output_path = "Dataset/HDMA Dataset_Processed.csv"
+output_path = "Dataset/Processed/HDMA Dataset_Processed.csv"
 df.to_csv(output_path, index=False)
 
 print(f"\nProcessed dataset saved successfully at: {output_path}")
