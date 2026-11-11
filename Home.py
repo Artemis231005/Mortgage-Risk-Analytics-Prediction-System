@@ -27,16 +27,16 @@ outcomes = df["action_taken_label"].value_counts()
 
 @st.cache_data(show_spinner=False)
 def load_eda_counts():
-    dataset_path = Path(__file__).resolve().parent / "Dataset" / "Processed" / "HDMA Dataset_Processed.csv"
-    data = pd.read_csv(dataset_path, usecols=["lei", "action_taken"], low_memory=False)
     return {
-        "total": int(data["lei"].count()),
-        "originated": int(data.loc[data["action_taken"] == 1, "lei"].count()),
-        "approved_not_accepted": int(data.loc[data["action_taken"] == 2, "lei"].count()),
-        "denied": int(data.loc[data["action_taken"] == 3, "lei"].count())
+        "total": 115033,
+        "originated": 75976,
+        "approved_not_accepted": 3879,
+        "denied": 13162
     }
 
+
 eda_counts = load_eda_counts()
+
 total = eda_counts["total"]
 originated = eda_counts["originated"]
 approved_not_accepted = eda_counts["approved_not_accepted"]
