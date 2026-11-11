@@ -24,10 +24,7 @@ The interactive Streamlit application provides a centralized interface to explor
 ### Exploratory Data Analysis
 ![EDA Dashboard](screenshots/eda.png)
 
-### Statistical Analysis
-![Statistical Analysis](screenshots/statistical_analysis.png)
-
-### Predictive Modelling
+### Outcome Prediction
 ![Predictive Modelling](screenshots/predictive_modelling.png)
 
 ### Applicant Segmentation
