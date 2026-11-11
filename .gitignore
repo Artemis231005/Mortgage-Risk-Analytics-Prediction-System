@@ -31,3 +31,15 @@ data/processed/
 Thumbs.db
 
 Topics.md
+# Streamlit application assets required at runtime
+!Results/Prepared_Datasets/*.csv
+!Results/ML/Prediction_Results/*.csv
+!Results/ML/Prediction_Results/Best_Models.pkl
+!Results/ML/Clustering_Results/*.csv
+!Results/Statistical_Analysis/Hypothesis_Testing/*.csv
+!Results/Statistical_Analysis/Anomaly_Detection/IQR_Results.csv
+!Results/Statistical_Analysis/Anomaly_Detection/Isolation_Forest_Results.csv
+
+# Keep source datasets out of the deployment repository
+/Dataset/Raw/
+/Dataset/Processed/
