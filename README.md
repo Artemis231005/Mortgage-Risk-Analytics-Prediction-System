@@ -12,7 +12,7 @@ It combines exploratory data analysis, statistical analysis, machine learning, c
 
 ## Application Overview
 
-**Live Application:** [Mortgage Risk Analytics and Prediction System Dashboard](https://mortgage-risk-analytics-and-prediction.onrender.com/Anomaly_Detection)
+**Live Application:** [Mortgage Risk Analytics and Prediction System Dashboard](https://mortgage-risk-analytics-and-prediction.onrender.com)
 
 The interactive Streamlit application provides a centralized interface to explore mortgage lending data, analyse application outcomes, evaluate predictive models, understand applicant segments, and investigate potential anomalies.
 
