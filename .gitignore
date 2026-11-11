@@ -31,6 +31,8 @@ data/processed/
 Thumbs.db
 
 Topics.md
+Imp_Info.md
+
 # Streamlit application assets required at runtime
 !Results/Prepared_Datasets/*.csv
 !Results/ML/Prediction_Results/*.csv
